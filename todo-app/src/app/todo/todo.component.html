@@ -1,0 +1,64 @@
+<div class="min-h-screen bg-lavender-light">
+  <!-- Header -->
+  <header class="bg-purple-primary p-6">
+    <h1 class="text-white text-3xl font-bold">TODO APP</h1>
+  </header>
+
+  <!-- Add Task Input -->
+  <div class="p-6 relative">
+    <input
+      type="text"
+      [(ngModel)]="newTodoTitle"
+      placeholder="Add Task"
+      class="w-full border-b border-gray-400 bg-transparent py-2 text-gray-600 focus:outline-none"
+      (keydown.enter)="addTodo()"
+    />
+    <button 
+      mat-mini-fab 
+      class="absolute right-1 top-4 bg-purple-primary rounded-full p-3 shadow-lg" 
+      (click)="addTodo()"
+    >
+      <mat-icon class="text-white">add</mat-icon>
+    </button>
+  </div>
+
+  <!-- Todo List -->
+  <div class="px-4 pb-6 space-y-4">
+    <div 
+      *ngFor="let todo of todos" 
+      class="bg-white rounded-2xl p-5 shadow-md flex justify-between items-center"
+    >
+      <span 
+        class="text-purple-primary font-medium"
+        [class.line-through]="todo.completed"
+      >
+        {{ todo.title }}
+      </span>
+      <div class="flex space-x-4">
+        <button class="text-purple-light" (click)="editTodo(todo)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="text-purple-light" (click)="deleteTodo(todo.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button class="text-purple-light" (click)="toggleComplete(todo)">
+          <mat-icon>{{ todo.completed ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Todo Dialog -->
+<ng-template #editDialog>
+  <h2 mat-dialog-title class="text-purple-primary">Edit Todo</h2>
+  <mat-dialog-content>
+    <mat-form-field class="w-full">
+      <input matInput [(ngModel)]="editingTodo.title" placeholder="Task title">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" (click)="saveEdit()">Save</button>
+  </mat-dialog-actions>
+</ng-template>

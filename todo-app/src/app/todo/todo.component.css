@@ -1,0 +1,17 @@
+.line-through {
+  text-decoration: line-through;
+}
+
+/* Override Material styles */
+::ng-deep .mat-mdc-mini-fab.mat-primary {
+  background-color: #9395d3 !important;
+}
+
+::ng-deep .mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 36px;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  --mdc-dialog-container-color: white;
+  border-radius: 16px !important;
+}
